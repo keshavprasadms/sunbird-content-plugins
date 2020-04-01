@@ -4,6 +4,7 @@ node() {
         sh """
             git status
             git describe --exact-match HEAD
+            echo "hi rajesh"
         """
     }
 }
