@@ -1,9 +1,10 @@
 node() {
     stage('Build') {
         checkout scm
-        sh """
-            git status
-            git describe --tags --exact-match `git rev-parse HEAD`
-        """
+        tag_name = sh (script: "git describe --tags --exact-match `git rev-parse HEAD`", returnStdout: true).trim()
+        println(tag_name)
+        if( tag_name =~ /test-.*/ ){
+            println("building")
+        }
     }
 }
