@@ -1,9 +1,9 @@
 node() {
     stage('Build') {
-            checkout scm
+        checkout scm
         sh """
             git status
-            git describe --exact-match $(git rev-parse HEAD)
+            git describe --exact-match `git rev-parse HEAD`
         """
     }
 }
