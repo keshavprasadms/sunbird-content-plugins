@@ -8,6 +8,10 @@ node() {
 
         ansiColor('xterm') {
             stage('Checkout') {
+                github_release_tag = sh(returnStdout: true, script: "echo $JOB_NAME").split('/')[-1].trim()
+                println("github_release_tag is : " + github_release_tag)
+                properties([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [[$class: 'StringParameterDefinition', defaultValue: "$github_release_tag", description: 'gitub tag', name : 'github_release_tag']]]])
+                println(params.github_release_tag)
                 cleanWs()
                 if (params.github_release_tag == "") {
                     dir('content-plugins') {
@@ -25,14 +29,15 @@ node() {
                     println(ANSI_BOLD + ANSI_YELLOW + "github_release_tag specified, building from github_release_tag: " + params.github_release_tag + ANSI_NORMAL)
                     }
                 }
-        
-
                 echo "artifact_version: " + artifact_version
 
                 stage('Build') {
+                    when { tag "tag-*" }
+                    steps {
                     sh """
                         zip -r content-plugins.zip content-plugins                     
                     """
+                   }
                 }  
                 
                 stage('ArchiveArtifacts') {
