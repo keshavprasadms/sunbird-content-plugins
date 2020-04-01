@@ -3,8 +3,7 @@ node() {
             checkout scm
         sh """
             git status
-            git describe --exact-match HEAD
-            echo "hello world"
+            git describe --exact-match $(git rev-parse HEAD)
         """
     }
 }
