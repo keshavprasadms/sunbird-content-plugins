@@ -17,7 +17,6 @@ node() {
                  println(artifact_version)
                  sh """
                       sleep 200
-                      cd ..
                       ls
                       zip -r content-plugins.zip content-plugins                     
                       mkdir content-plugins-artifacts
