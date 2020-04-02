@@ -16,7 +16,7 @@ node() {
             if (tag_name.contains(env.staging_tag)) {
                  println(artifact_version)
                  sh """
-                      sleep 120
+                      #sleep 120
                       ls
                       zip -r content-plugins.zip content-plugins                     
                       mkdir content-plugins-artifacts
