@@ -27,7 +27,7 @@ node() {
                currentBuild.description = "${artifact_version}"
         }    
         else
-          exit 1
+          println "Error"
             
     }
 }
