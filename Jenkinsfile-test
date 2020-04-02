@@ -7,9 +7,9 @@ node() {
             if( ! tag_name ==~ /tag-*/ ){
                 exit 1
             }
-        }
             commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
             artifact_version = tag_name + "_" + commit_hash
+        }
             println(artifact_version)
             sh """
                 ls
