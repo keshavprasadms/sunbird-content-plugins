@@ -2,7 +2,9 @@ node() {
     def buildNumber = env.BUILD_NUMBER as int
     if (buildNumber > 1) milestone(buildNumber - 1)
     milestone(buildNumber)
+    
     stage('Build') {
+    
         dir('content-plugins'){
             checkout scm
             tag_name = sh (script: "git describe --tags --exact-match `git rev-parse HEAD`", returnStdout: true).trim()
@@ -10,6 +12,7 @@ node() {
             commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
             artifact_version = tag_name + "_" + commit_hash
             }
+            
             if (tag_name.contains(env.staging_tag)) {
                  println(artifact_version)
                  sh """
@@ -26,6 +29,8 @@ node() {
                archiveArtifacts artifacts: 'metadata.json', onlyIfSuccessful: true
                currentBuild.description = "${artifact_version}"
         }    
+        else
+          exit 1 
             
     }
 }
