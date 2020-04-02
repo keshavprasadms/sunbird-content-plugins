@@ -2,6 +2,7 @@ node() {
     def buildNumber = env.BUILD_NUMBER as int
     if (buildNumber > 1) milestone(buildNumber - 1)
     milestone(buildNumber)
+    
     stage('Build') {
         dir('content-plugins'){
             checkout scm
@@ -10,6 +11,7 @@ node() {
             commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
             artifact_version = tag_name + "_" + commit_hash
             }
+            
             if (tag_name.contains(env.staging_tag)) {
                  println(artifact_version)
                  sh """
