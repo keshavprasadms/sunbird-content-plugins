@@ -4,7 +4,6 @@ node() {
     milestone(buildNumber)
     
     stage('Build') {
-    
         dir('content-plugins'){
             checkout scm
             tag_name = sh (script: "git describe --tags --exact-match `git rev-parse HEAD`", returnStdout: true).trim()
@@ -29,7 +28,6 @@ node() {
                currentBuild.description = "${artifact_version}"
         }    
         else
-          println "Error"
-            
+          println "Error"         
     }
 }
