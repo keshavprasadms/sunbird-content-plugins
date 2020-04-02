@@ -22,5 +22,6 @@ node() {
             sh """echo {\\"artifact_name\\" : \\"content-plugins-artifacts.zip\\", \\"artifact_version\\" : \\"${artifact_version}\\", \\"node_name\\" : \\"${env.NODE_NAME}\\"} > metadata.json"""
             archiveArtifacts artifacts: 'metadata.json', onlyIfSuccessful: true
             currentBuild.description = "${artifact_version}"
+            
     }
 }
